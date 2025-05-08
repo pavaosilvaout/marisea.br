@@ -1,1 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Marisea</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .site-header {
+      background-color: #f5f5f5;
+      padding: 20px 0;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .main-nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .hero {
+      background-color: #efefef;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+    }
+
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .produto {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .produto img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .produto button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .produto button:hover {
+      background-color: #2980b9;
+    }
+
+    .newsletter {
+      background-color: #f0f0f0;
+      padding: 40px;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      background-color: #f5f5f5;
+      padding: 20px 0;
+    }
+
+    .carrinho-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+      z-index: 9999;
+    }
+
+    #fechar-carrinho {
+      background-color: #e74c3c;
+      padding: 10px 20px;
+      border: none;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-container">
+      <h1 class="logo">Marisea</h1>
+      <nav class="main-nav">
+        <a href="#">Início</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#contato">Contato</a>
+        <a href="#carrinho" id="carrinho-link">Carrinho (0)</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Nova Coleção Marisea</h2>
+      <p>Estilo e conforto para o seu dia a dia</p>
+      <a href="#catalogo" class="btn">Ver Coleção</a>
+    </div>
+  </section>
+
+  <section id="catalogo" class="catalogo">
+    <!-- Exemplo com 2 produtos, repita até 12 -->
+    <div class="produto" data-id="1">
+      <img src="camisa1-frente.jpg" alt="Camisa 1 Frente">
+      <img src="camisa1-costas.jpg" alt="Camisa 1 Costas">
+      <p>Camisa 1</p>
+      <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+    </div>
+    <div class="produto" data-id="2">
+      <img src="camisa2-frente.jpg" alt="Camisa 2 Frente">
+      <img src="camisa2-costas.jpg" alt="Camisa 2 Costas">
+      <p>Camisa 2</p>
+      <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+    </div>
+    <!-- Continue com mais 10 camisas... -->
+  </section>
+
+  <section class="newsletter">
+    <h3>Receba novidades</h3>
+    <p>Assine nossa newsletter para ofertas exclusivas</p>
+    <form>
+      <input type="email" placeholder="Seu e-mail" required>
+      <button type="submit">Inscrever-se</button>
+    </form>
+  </section>
+
+  <footer id="contato">
+    <div class="footer-container">
+      <p>&copy; 2025 Marisea. Todos os direitos reservados.</p>
+      <p>Email: contato@marisea.com | Instagram: <a href="https://instagram.com/marisea.br" target="_blank">@marisea.br</a></p>
+      <p><a href="https://wa.me/5547991875082" target="_blank">Fale conosco no WhatsApp</a></p>
+    </div>
+  </footer>
+
+  <div id="carrinho" class="carrinho-modal">
+    <h3>Carrinho de Compras</h3>
+    <div id="itens-carrinho"></div>
+    <p>Total: R$ <span id="total-carrinho">0,00</span></p>
+    <button id="finalizar-compra">Finalizar Compra</button>
+    <button id="fechar-carrinho">Fechar</button>
+  </div>
+
+  <script>
+    let carrinho = [];
+    const carrinhoLink = document.getElementById('carrinho-link');
+    const itensCarrinho = document.getElementById('itens-carrinho');
+    const totalCarrinho = document.getElementById('total-carrinho');
+    const carrinhoModal = document.getElementById('carrinho');
+    const fecharCarrinho = document.getElementById('fechar-carrinho');
+
+    document.querySelectorAll('.adicionar-carrinho').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const produto = e.target.parentElement;
+        const id = produto.getAttribute('data-id');
+        const nome = produto.querySelector('p').textContent;
+        carrinho.push({ id, nome });
+        atualizarCarrinho();
+      });
+    });
+
+    function atualizarCarrinho() {
+      carrinhoLink.textContent = Carrinho (${carrinho.length});
+      itensCarrinho.innerHTML = carrinho.map(item => <p>${item.nome}</p>).join('');
+      totalCarrinho.textContent = (carrinho.length * 50).toFixed(2); // Preço fixo R$50
+    }
+
+    carrinhoLink.addEventListener('click', () => {
+      carrinhoModal.style.display = 'flex';
+    });
+
+    fecharCarrinho.addEventListener('click', () => {
+      carrinhoModal.style.display = 'none';
+    });
+
+    document.getElementById('finalizar-compra').addEventListener('click', () => {
+      const mensagem = encodeURIComponent('Olá! Quero comprar as camisas: ' + carrinho.map(item => item.nome).join(', '));
+      window.open(https://wa.me/5547991875082?text=${mensagem}, '_blank');
+    });
+  </script>
+</body>
+</html>
