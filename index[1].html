@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marisea</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-container">
+      <h1 class="logo">Marisea</h1>
+      <nav class="main-nav">
+        <a href="#">Início</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#contato">Contato</a>
+        <a href="#carrinho" id="carrinho-link">Carrinho (0)</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Nova Coleção Marisea</h2>
+      <p>Estilo e conforto para o seu dia a dia</p>
+      <a href="#catalogo" class="btn">Ver Coleção</a>
+    </div>
+  </section>
+
+  <section id="catalogo" class="catalogo">
+    <div class="produto" data-id="1">
+      <img src="camisa1-frente.jpg" alt="Camisa 1 Frente">
+      <img src="camisa1-costas.jpg" alt="Camisa 1 Costas">
+      <p>Camisa 1</p>
+      <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+    </div>
+    <div class="produto" data-id="2">
+      <img src="camisa2-frente.jpg" alt="Camisa 2 Frente">
+      <img src="camisa2-costas.jpg" alt="Camisa 2 Costas">
+      <p>Camisa 2</p>
+      <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+    </div>
+    <!-- Repita para as outras camisas -->
+  </section>
+
+  <section class="newsletter">
+    <h3>Receba novidades</h3>
+    <p>Assine nossa newsletter para ofertas exclusivas</p>
+    <form>
+      <input type="email" placeholder="Seu e-mail">
+      <button type="submit">Inscrever-se</button>
+    </form>
+  </section>
+
+  <footer id="contato">
+    <div class="footer-container">
+      <p>&copy; 2025 Marisea. Todos os direitos reservados.</p>
+      <p>Email: contato@marisea.com | Instagram: <a href="https://instagram.com/marisea.br" target="_blank">@marisea.br</a></p>
+      <p><a href="https://wa.me/5547991875082" target="_blank">Fale conosco no WhatsApp</a></p>
+    </div>
+  </footer>
+
+  <div id="carrinho" class="carrinho-modal">
+    <h3>Carrinho de Compras</h3>
+    <div id="itens-carrinho"></div>
+    <p>Total: R$ <span id="total-carrinho">0,00</span></p>
+    <button id="finalizar-compra">Finalizar Compra</button>
+    <button id="fechar-carrinho">Fechar</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
